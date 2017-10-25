@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Perfil</string>
+    <string name="activity_main_txtWeb_hint">(url)</string>
+    <string name="activity_main_lblWeb_text">Web</string>
+    <string name="activity_main_txtAddress_hint">(direccion)</string>
+    <string name="activity_main_lblAddress_text">Direccion</string>
+    <string name="activity_main_lblHint_hint">(email)</string>
+    <string name="activity_main_txtPhone_hint">(Telefono)</string>
+    <string name="activity_main_lblEmail_text">Email</string>
+    <string name="activity_main_lblPhone_text">Numero de telefono</string>
+    <string name="activity_main_txtName_text">(nombre)</string>
+    <string name="activity_main_lblName_text">Nombre</string>
+    <string name="activity_main_lblCatName_text">Jacob</string>
+    <string name="activity_cat_select_cat1_text">Jacob</string>
+    <string name="activity_cat_select_cat2_text">Dante</string>
+    <string name="activity_cat_select_cat3_text">Noah</string>
+    <string name="activity_cat_select_cat4_text">Sofia</string>
+    <string name="activity_cat_select_cat5_text">Dylan</string>
+    <string name="activity_cat_select_cat6_text">Blancky</string>
+    <string name="main_activity_no_dial_app">No existe la aplicacion para marcar</string>
+    <string name="main_activity_no_url_app">No existe la aplicacion para buscar la url</string>
+    <string name="main_activity_no_internet">Necesitas internet</string>
+    <string name="main_activity_no_map_app">No existe aplicacion para mapas</string>
+    <string name="main_activity_no_email_app">No eexiste aplicacion para email</string>
+    <string name="activity_cat_name">Seleccionar avatar</string>
+</resources>
