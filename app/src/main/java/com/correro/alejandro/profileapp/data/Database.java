@@ -8,14 +8,14 @@ public class Database {
 
     private static Database instance;
 
-    private ArrayList<Users> students;
+    private ArrayList<User> students;
 
     private Database() {
         students = new ArrayList<>();
 
-        students.add(new Student("Baldomero", true));
-        students.add(new Student("Germán Ginés", false));
-        students.add(new Student("Genaro", true));
+        students.add(new User("Baldomero", true));
+        students.add(new User("Germán Ginés", false));
+        students.add(new User("Genaro", true));
 
     }
 
@@ -26,15 +26,15 @@ public class Database {
         return instance;
     }
 
-    public ArrayList<Student> getStudents() {
+    public ArrayList<User> getStudents() {
         return students;
     }
 
-    public void addStudent(Student student) {
+    public void addStudent(User student) {
         students.add(student);
     }
 
-    public void updateStudent(Student student, int position) {
+    public void updateStudent(User student, int position) {
         students.set(position, student);
     }
 
@@ -42,7 +42,7 @@ public class Database {
         students.remove(position);
     }
 
-    public void insertStudent(Student student, int position) {
+    public void insertStudent(User student, int position) {
         students.add(position, student);
     }
 }
