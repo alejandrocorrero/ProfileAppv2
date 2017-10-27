@@ -3,6 +3,7 @@ package com.correro.alejandro.profileapp.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -101,6 +102,12 @@ public class CatSelect extends AppCompatActivity {
     @OnClick({R.id.ivCat6,R.id.lblCat6})
     public void cat6CLick(){
         intentForCat(new Cat((Integer) ivCat6.getTag(),lblCat6.getText().toString()));
+    }
+
+    //TODO REVISAR
+    @OnClick({R.id.ivCat1,R.id.ivCat2,R.id.ivCat3,R.id.ivCat4,R.id.ivCat5,R.id.ivCat6})
+    public void cat1CLick(View view){
+        intentForCat((Cat) view.getTag());
     }
 
 }
