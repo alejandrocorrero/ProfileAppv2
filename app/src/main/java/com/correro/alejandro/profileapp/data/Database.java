@@ -1,8 +1,6 @@
 package com.correro.alejandro.profileapp.data;
 
 import com.correro.alejandro.profileapp.data.model.User;
-import com.example.a2dam.contraintlayoutdemo.data.model.Student;
-
 import java.util.ArrayList;
 
 public class Database {
@@ -13,12 +11,6 @@ public class Database {
 
     private Database() {
         users = new ArrayList<User>();
-
-        //TODO AÑADIR USUARIOS
-        users.add(new User("Baldomero", true));
-        users.add(new User("Germán Ginés", false));
-        users.add(new User("Genaro", true));
-
     }
 
     public static synchronized Database getInstance() {

@@ -1,6 +1,7 @@
 package com.correro.alejandro.profileapp.data.model;
 
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -37,17 +38,38 @@ public class User implements Parcelable {
         this.avatar = avatar;
     }
 
+    public String getWeb() {
+        return web;
+    }
+
+    public void setWeb(String web) {
+        this.web = web;
+    }
+
+    public String getMap() {
+        return map;
+    }
+
+    public void setMap(String map) {
+        this.map = map;
+    }
+
     private String name;
     private String phone;
     private String email;
     private int avatar;
-    //TODO CONTEMPLAR WEB Y DIRECCION
 
-    public User(String name, String phone, String email, int avatar) {
+
+    private String web;
+    private String map;
+
+    public User(String name, String phone, String email, int avatar, String web, String map) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.avatar = avatar;
+        this.map = map;
+        this.web = web;
     }
 
     protected User(Parcel in) {
@@ -55,6 +77,8 @@ public class User implements Parcelable {
         this.phone = in.readString();
         this.email = in.readString();
         this.avatar = in.readInt();
+        this.map = in.readString();
+        this.web = in.readString();
     }
 
     @Override
@@ -63,6 +87,8 @@ public class User implements Parcelable {
         dest.writeString(this.phone);
         dest.writeString(this.email);
         dest.writeInt(this.avatar);
+        dest.writeString(this.map);
+        dest.writeString(this.web);
     }
 
 
