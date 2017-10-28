@@ -1,5 +1,7 @@
 package com.correro.alejandro.profileapp.ui;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import com.correro.alejandro.profileapp.R;
 import com.correro.alejandro.profileapp.data.model.Cat;
+import com.correro.alejandro.profileapp.data.model.User;
 import com.correro.alejandro.profileapp.data.utils.IntentsUtils;
 import com.correro.alejandro.profileapp.data.utils.NetworkUtils;
 import com.correro.alejandro.profileapp.data.utils.ValidationUtils;
@@ -66,6 +69,8 @@ public class ProfileActivity extends AppCompatActivity {
     final int RC_CAT = 1;
     //Value of the actual ivCat drawable
     int drawableId;
+    private static final String EXTRA_USER = "EXTRA_USER";
+    private static final String EXTRA_POSITION = "EXTRA_POSITION";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -277,6 +282,16 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
 
+    }
+    public static void startForResult(Activity context, int requestCode) {
+        context.startActivityForResult(new Intent(context, ProfileActivity.class), requestCode);
+    }
+    //TODO ASIGNAR USER A CADA SITIO DEL PROFILE
+    public static void startForResult(Activity context, int requestCode, User user, int position) {
+        Intent intent = new Intent(context, ProfileActivity.class);
+        intent.putExtra(EXTRA_USER, user);
+        intent.putExtra(EXTRA_POSITION, position);
+        context.startActivityForResult(intent, requestCode);
     }
 
 

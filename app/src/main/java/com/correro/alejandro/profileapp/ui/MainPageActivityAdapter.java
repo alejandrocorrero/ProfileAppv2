@@ -7,11 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.correro.alejandro.profileapp.R;
 import com.correro.alejandro.profileapp.data.model.User;
 
 import java.util.ArrayList;
+
 
 public class MainPageActivityAdapter extends BaseAdapter {
     ArrayList<User> data;
@@ -24,11 +27,11 @@ public class MainPageActivityAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
-    }
+        return data == null ? 0 : data.size();
+}
 
     @Override
-    public Object getItem(int i) {
+    public User getItem(int i) {
         return null;
     }
 
@@ -55,6 +58,10 @@ public class MainPageActivityAdapter extends BaseAdapter {
         // Retorna la vista ya configurada.
         return convertView;
     }
+    public void setData(ArrayList<User> newData) {
+        data = newData;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     private ViewHolder onCreateViewHolder(View convertView) {
@@ -70,15 +77,22 @@ public class MainPageActivityAdapter extends BaseAdapter {
     static class ViewHolder {
         //TODO AÑADIR CON BUTTERNAI
         TextView lblName;
-        TextView lblRepeater;
+        TextView lblEmail;
+        TextView lblPhone;
+        ImageView ivAvatar;
 
         public ViewHolder(View itemView) {
             lblName = (TextView) itemView.findViewById(R.id.lblName);
-            lblRepeater = (TextView) itemView.findViewById(R.id.lblRepeater);
+            lblEmail = (TextView) itemView.findViewById(R.id.lblEmail);
+            lblPhone = (TextView) itemView.findViewById(R.id.lblPhone);
+            ivAvatar = itemView.findViewById(R.id.ivAvatar);
         }
 
         public void bind(User user) {
             lblName.setText(user.getName());
+            lblEmail.setText(user.getEmail());
+            lblPhone.setText(user.getPhone());
+            ivAvatar.setImageResource(user.getAvatar());
 
         }
     }
