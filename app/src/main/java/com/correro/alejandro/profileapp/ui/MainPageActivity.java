@@ -2,6 +2,8 @@ package com.correro.alejandro.profileapp.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +32,7 @@ public class MainPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        users=loadStudents();
+        users = loadStudents();
         setContentView(R.layout.activity_main_page);
         ButterKnife.bind(this);
         setupListView();
@@ -42,6 +44,7 @@ public class MainPageActivity extends AppCompatActivity {
         adapter = new MainPageActivityAdapter(this, users);
         lvProfile.setAdapter(adapter);
     }
+
     private void editUser(User user, int position) {
         ProfileActivity.startForResult(this, RC_PROFILE_ACTIVITY, user, position);
     }
@@ -51,9 +54,25 @@ public class MainPageActivity extends AppCompatActivity {
         Toast.makeText(this, "Cargando", Toast.LENGTH_SHORT).show();
         return database.getUsers();
     }
+
     @OnClick(R.id.lblEmpty)
-    public void addNewUser(){
+    public void addNewUser() {
         ProfileActivity.startForResult(this, RC_PROFILE_ACTIVITY);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main_page, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.mnuAdd) {
+            addNewUser();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

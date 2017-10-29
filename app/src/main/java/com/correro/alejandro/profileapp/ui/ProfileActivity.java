@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -71,15 +73,20 @@ public class ProfileActivity extends AppCompatActivity {
     int drawableId;
     private static final String EXTRA_USER = "EXTRA_USER";
     private static final String EXTRA_POSITION = "EXTRA_POSITION";
+    private User user=null;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        obtainIntentData(getIntent());
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
         startValues();
         ivCat.setTag(R.drawable.cat1);
         drawableId = (Integer) ivCat.getTag();
+        if(user!=null)
+        setDate(user);
 
     }
 
@@ -286,12 +293,43 @@ public class ProfileActivity extends AppCompatActivity {
     public static void startForResult(Activity context, int requestCode) {
         context.startActivityForResult(new Intent(context, ProfileActivity.class), requestCode);
     }
-    //TODO ASIGNAR USER A CADA SITIO DEL PROFILE
     public static void startForResult(Activity context, int requestCode, User user, int position) {
         Intent intent = new Intent(context, ProfileActivity.class);
         intent.putExtra(EXTRA_USER, user);
         intent.putExtra(EXTRA_POSITION, position);
         context.startActivityForResult(intent, requestCode);
+
+    }
+    private void obtainIntentData(Intent intent) {
+        if (intent !=  null && intent.hasExtra(EXTRA_USER) && intent.hasExtra(EXTRA_POSITION)) {
+            user = intent.getParcelableExtra(EXTRA_USER);
+            position = intent.getIntExtra(EXTRA_POSITION, 0);
+        }
+    }
+    private void setDate(User user) {
+       txtName.setText(user.getName());
+       txtEmail.setText(user.getEmail());
+       txtAddress.setText(user.getMap());
+       txtPhone.setText(user.getPhone());
+       txtWeb.setText(user.getWeb());
+       ivCat.setImageResource(user.getAvatar());
+
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_profile, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    //TODO TERMINAR AÑADIR AL ACEPTAR DEVOLVER EL USUARIO
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.mnuAccept) {
+            addStudent();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

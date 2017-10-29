@@ -24,4 +24,5 @@
     <string name="main_activity_no_email_app">Do not exist email app</string>
     <string name="activity_cat_name">Select avatar</string>
     <string name="activity_main_page_lblEmpty_text">Click to add a new profile</string>
+    <string name="mnuAdd">Add</string>
 </resources>

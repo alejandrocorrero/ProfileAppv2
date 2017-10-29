@@ -23,4 +23,5 @@
     <string name="main_activity_no_map_app">No existe aplicacion para mapas</string>
     <string name="main_activity_no_email_app">No eexiste aplicacion para email</string>
     <string name="activity_cat_name">Seleccionar avatar</string>
+    <string name="mnuAdd">Add</string>
 </resources>

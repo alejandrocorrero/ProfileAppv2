@@ -105,9 +105,9 @@ public class CatSelect extends AppCompatActivity {
     }
 
     //TODO REVISAR
-    @OnClick({R.id.ivCat1,R.id.ivCat2,R.id.ivCat3,R.id.ivCat4,R.id.ivCat5,R.id.ivCat6})
-    public void cat1CLick(View view){
-        intentForCat((Cat) view.getTag());
-    }
+//    @OnClick({R.id.ivCat1,R.id.ivCat2,R.id.ivCat3,R.id.ivCat4,R.id.ivCat5,R.id.ivCat6})
+//    public void cat1CLick(View view){
+//        intentForCat((Cat) view.getTag());
+//    }
 
 }

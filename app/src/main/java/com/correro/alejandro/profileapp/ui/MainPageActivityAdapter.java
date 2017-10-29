@@ -31,8 +31,8 @@ public class MainPageActivityAdapter extends BaseAdapter {
 }
 
     @Override
-    public User getItem(int i) {
-        return null;
+    public User getItem(int position) {
+        return data.get(position);
     }
 
     @Override
