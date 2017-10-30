@@ -322,7 +322,7 @@ public class ProfileActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    //TODO TERMINAR AÑADIR AL ACEPTAR DEVOLVER EL USUARIO
+    //TODO TERMINAR ACTUALIZAR USUARIO
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.mnuAccept) {
@@ -330,6 +330,13 @@ public class ProfileActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void addStudent() {
+        Intent result = new Intent();
+        result.putExtra("user", new User(txtName.getText().toString(),txtPhone.getText().toString(),txtEmail.getText().toString(),(int)ivCat.getTag(),txtAddress.getText().toString(),txtAddress.getText().toString()));
+        setResult(RESULT_OK, result);
+        finish();
     }
 
 

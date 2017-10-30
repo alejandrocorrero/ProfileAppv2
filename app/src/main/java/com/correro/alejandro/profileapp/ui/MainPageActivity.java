@@ -1,5 +1,6 @@
 package com.correro.alejandro.profileapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -32,11 +33,12 @@ public class MainPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        users = loadStudents();
+        users = loadUsers();
         setContentView(R.layout.activity_main_page);
         ButterKnife.bind(this);
         setupListView();
     }
+
 
     private void setupListView() {
         lvProfile.setEmptyView(lblEmpty);
@@ -49,7 +51,7 @@ public class MainPageActivity extends AppCompatActivity {
         ProfileActivity.startForResult(this, RC_PROFILE_ACTIVITY, user, position);
     }
 
-    private ArrayList<User> loadStudents() {
+    private ArrayList<User> loadUsers() {
         database = Database.getInstance();
         Toast.makeText(this, "Cargando", Toast.LENGTH_SHORT).show();
         return database.getUsers();
@@ -73,6 +75,17 @@ public class MainPageActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == RC_PROFILE_ACTIVITY) {
+            if (data.hasExtra("user")) {
+                User user = data.getParcelableExtra("user");
+                database.addUser(user);
+                adapter.notifyDataSetChanged();
+            }
+        }
+
     }
 
 }

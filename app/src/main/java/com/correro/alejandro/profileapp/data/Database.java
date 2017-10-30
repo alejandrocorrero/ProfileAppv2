@@ -28,19 +28,19 @@ public class Database {
         return users;
     }
 
-    public void addStudent(User student) {
-        users.add(student);
+    public void addUser(User user) {
+        users.add(user);
     }
 
-    public void updateStudent(User student, int position) {
-        users.set(position, student);
+    public void updateStudent(User user, int position) {
+        users.set(position, user);
     }
 
     public void deleteStudent(int position) {
         users.remove(position);
     }
 
-    public void insertStudent(User student, int position) {
-        users.add(position, student);
+    public void insertStudent(User user, int position) {
+        users.add(position, user);
     }
 }
