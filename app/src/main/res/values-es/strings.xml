@@ -21,7 +21,11 @@
     <string name="main_activity_no_url_app">No existe la aplicacion para buscar la url</string>
     <string name="main_activity_no_internet">Necesitas internet</string>
     <string name="main_activity_no_map_app">No existe aplicacion para mapas</string>
-    <string name="main_activity_no_email_app">No eexiste aplicacion para email</string>
+    <string name="main_activity_no_email_app">No existe aplicacion para email</string>
     <string name="activity_cat_name">Seleccionar avatar</string>
-    <string name="mnuAdd">Add</string>
+    <string name="activity_main_page_lblEmpty_text">Haz click para añadr un usuario</string>
+    <string name="mnuAdd">Añadir</string>
+    <string name="MainPageActivity_remove_user">%1$s ha sido eliminado</string>
+    <string name="MainPageActivity_undo_user">Deshacer</string>
+    <string name="activity_profile_name">Perfil Usuario</string>
 </resources>

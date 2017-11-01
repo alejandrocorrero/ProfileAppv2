@@ -2,12 +2,12 @@ package com.correro.alejandro.profileapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.correro.alejandro.profileapp.R;
 import com.correro.alejandro.profileapp.data.Database;
@@ -29,6 +29,7 @@ public class MainPageActivity extends AppCompatActivity {
     private ArrayList<User> users = new ArrayList<>();
     private Database database;
     private static final int RC_PROFILE_ACTIVITY = 1;
+    private static final int RC_PROFILE_UPDATE = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +44,30 @@ public class MainPageActivity extends AppCompatActivity {
     private void setupListView() {
         lvProfile.setEmptyView(lblEmpty);
         lvProfile.setOnItemClickListener((adapterView, view, position, id) -> editUser(adapter.getItem(position), position));
+        lvProfile.setOnItemLongClickListener((adapterView, view, position, l) -> {
+            deleteUser(position);
+            return true;
+        });
         adapter = new MainPageActivityAdapter(this, users);
         lvProfile.setAdapter(adapter);
     }
 
+    private void deleteUser(int position) {
+        User user = adapter.getItem(position);
+        database.deleteUser(position);
+        adapter.notifyDataSetChanged();
+        Snackbar.make(lvProfile, getString(R.string.MainPageActivity_remove_user,user.getName()), Snackbar.LENGTH_LONG).setAction(getString(R.string.MainPageActivity_undo_user), view -> {
+            database.insertUser(user, position);
+            adapter.notifyDataSetChanged();
+        }).show();
+    }
+
     private void editUser(User user, int position) {
-        ProfileActivity.startForResult(this, RC_PROFILE_ACTIVITY, user, position);
+        ProfileActivity.startForResult(this, RC_PROFILE_UPDATE, user, position);
     }
 
     private ArrayList<User> loadUsers() {
         database = Database.getInstance();
-        Toast.makeText(this, "Cargando", Toast.LENGTH_SHORT).show();
         return database.getUsers();
     }
 
@@ -82,6 +96,13 @@ public class MainPageActivity extends AppCompatActivity {
             if (data.hasExtra("user")) {
                 User user = data.getParcelableExtra("user");
                 database.addUser(user);
+                adapter.notifyDataSetChanged();
+            }
+        }
+        if (resultCode == RESULT_OK && requestCode == RC_PROFILE_UPDATE) {
+            if (data.hasExtra("user")) {
+                User user = data.getParcelableExtra("user");
+                database.updateUser(user, data.getIntExtra("positon", 0));
                 adapter.notifyDataSetChanged();
             }
         }

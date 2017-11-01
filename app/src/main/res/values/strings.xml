@@ -25,4 +25,7 @@
     <string name="activity_cat_name">Select avatar</string>
     <string name="activity_main_page_lblEmpty_text">Click to add a new profile</string>
     <string name="mnuAdd">Add</string>
+    <string name="MainPageActivity_remove_user">%1$s remove</string>
+    <string name="MainPageActivity_undo_user">Undo</string>
+    <string name="activity_profile_name">User profile</string>
 </resources>

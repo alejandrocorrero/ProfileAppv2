@@ -14,7 +14,13 @@ public class Database {
         users = new ArrayList<User>();
         //TODO PRUEBA
         users.add(new User("alex","666666666","alejandro.correro@hotmail.com", R.drawable.cat1,"wwww.marca.com","avenida la cañada"));
-
+        users.add(new User("alex","666666666","alejandro.correro@hotmail.com", R.drawable.cat1,"wwww.marca.com","avenida la cañada"));
+        users.add(new User("alex","666666666","alejandro.correro@hotmail.com", R.drawable.cat1,"wwww.marca.com","avenida la cañada"));
+        users.add(new User("alex","666666666","alejandro.correro@hotmail.com", R.drawable.cat1,"wwww.marca.com","avenida la cañada"));
+        users.add(new User("alex","666666666","alejandro.correro@hotmail.com", R.drawable.cat1,"wwww.marca.com","avenida la cañada"));
+        users.add(new User("alex","666666666","alejandro.correro@hotmail.com", R.drawable.cat1,"wwww.marca.com","avenida la cañada"));
+        users.add(new User("alex","666666666","alejandro.correro@hotmail.com", R.drawable.cat1,"wwww.marca.com","avenida la cañada"));
+        users.add(new User("alex","666666666","alejandro.correro@hotmail.com", R.drawable.cat1,"wwww.marca.com","avenida la cañada"));
     }
 
     public static synchronized Database getInstance() {
@@ -32,15 +38,15 @@ public class Database {
         users.add(user);
     }
 
-    public void updateStudent(User user, int position) {
+    public void updateUser(User user, int position) {
         users.set(position, user);
     }
 
-    public void deleteStudent(int position) {
+    public void deleteUser(int position) {
         users.remove(position);
     }
 
-    public void insertStudent(User user, int position) {
+    public void insertUser(User user, int position) {
         users.add(position, user);
     }
 }

@@ -23,6 +23,8 @@ import com.correro.alejandro.profileapp.data.utils.IntentsUtils;
 import com.correro.alejandro.profileapp.data.utils.NetworkUtils;
 import com.correro.alejandro.profileapp.data.utils.ValidationUtils;
 
+import org.w3c.dom.Text;
+
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -182,7 +184,7 @@ public class ProfileActivity extends AppCompatActivity {
             ivWeb.setClickable(true);
         } else {
             ivWeb.setImageResource(R.drawable.ic_web_grey_24dp);
-            ivWeb.setClickable(true);
+            ivWeb.setClickable(false);
         }
     }
 
@@ -271,8 +273,7 @@ public class ProfileActivity extends AppCompatActivity {
     @OnClick({R.id.ivCat, R.id.lblCatName})
     public void clickCat() {
         Intent intent = new Intent(this, CatSelect.class);
-        intent.putExtra("cat", drawableId);
-
+        intent.putExtra("cat", (int) ivCat.getTag());
         startActivityForResult(intent, RC_CAT);
 
     }
@@ -313,6 +314,7 @@ public class ProfileActivity extends AppCompatActivity {
        txtPhone.setText(user.getPhone());
        txtWeb.setText(user.getWeb());
        ivCat.setImageResource(user.getAvatar());
+        ivCat.setTag(user.getAvatar());
 
 
     }
@@ -322,19 +324,23 @@ public class ProfileActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    //TODO TERMINAR ACTUALIZAR USUARIO
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.mnuAccept) {
-            addStudent();
-            return true;
+            //I consider that the only essential information are emaiil,phone and name.
+            if(ivEmail.isClickable()&&ivPhone.isClickable()&& !TextUtils.isEmpty(txtName.getText().toString())){
+                addStudent();
+                return true;}
+            else
+                Toast.makeText(this, "Add valid information", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void addStudent() {
         Intent result = new Intent();
-        result.putExtra("user", new User(txtName.getText().toString(),txtPhone.getText().toString(),txtEmail.getText().toString(),(int)ivCat.getTag(),txtAddress.getText().toString(),txtAddress.getText().toString()));
+        result.putExtra("user", new User(txtName.getText().toString(),txtPhone.getText().toString(),txtEmail.getText().toString(),(int)ivCat.getTag(),txtWeb.getText().toString(),txtAddress.getText().toString()));
+        result.putExtra("position",position);
         setResult(RESULT_OK, result);
         finish();
     }
