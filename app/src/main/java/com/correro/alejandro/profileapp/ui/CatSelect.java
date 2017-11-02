@@ -103,6 +103,11 @@ public class CatSelect extends AppCompatActivity {
     public void cat6CLick(){
         intentForCat(new Cat((Integer) ivCat6.getTag(),lblCat6.getText().toString()));
     }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
     //TODO REVISAR
 //    @OnClick({R.id.ivCat1,R.id.ivCat2,R.id.ivCat3,R.id.ivCat4,R.id.ivCat5,R.id.ivCat6})

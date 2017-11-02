@@ -1,6 +1,7 @@
 package com.correro.alejandro.profileapp.ui;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -75,7 +76,7 @@ public class ProfileActivity extends AppCompatActivity {
     int drawableId;
     private static final String EXTRA_USER = "EXTRA_USER";
     private static final String EXTRA_POSITION = "EXTRA_POSITION";
-    private User user=null;
+    private User user = null;
     private int position;
 
     @Override
@@ -87,8 +88,8 @@ public class ProfileActivity extends AppCompatActivity {
         startValues();
         ivCat.setTag(R.drawable.cat1);
         drawableId = (Integer) ivCat.getTag();
-        if(user!=null)
-        setDate(user);
+        if (user != null)
+            setDate(user);
 
     }
 
@@ -291,9 +292,11 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
     }
+
     public static void startForResult(Activity context, int requestCode) {
         context.startActivityForResult(new Intent(context, ProfileActivity.class), requestCode);
     }
+
     public static void startForResult(Activity context, int requestCode, User user, int position) {
         Intent intent = new Intent(context, ProfileActivity.class);
         intent.putExtra(EXTRA_USER, user);
@@ -301,37 +304,48 @@ public class ProfileActivity extends AppCompatActivity {
         context.startActivityForResult(intent, requestCode);
 
     }
+
     private void obtainIntentData(Intent intent) {
-        if (intent !=  null && intent.hasExtra(EXTRA_USER) && intent.hasExtra(EXTRA_POSITION)) {
+        if (intent != null && intent.hasExtra(EXTRA_USER) && intent.hasExtra(EXTRA_POSITION)) {
             user = intent.getParcelableExtra(EXTRA_USER);
             position = intent.getIntExtra(EXTRA_POSITION, 0);
         }
     }
+
     private void setDate(User user) {
-       txtName.setText(user.getName());
-       txtEmail.setText(user.getEmail());
-       txtAddress.setText(user.getMap());
-       txtPhone.setText(user.getPhone());
-       txtWeb.setText(user.getWeb());
-       ivCat.setImageResource(user.getAvatar());
+        txtName.setText(user.getName());
+        txtEmail.setText(user.getEmail());
+        txtAddress.setText(user.getMap());
+        txtPhone.setText(user.getPhone());
+        txtWeb.setText(user.getWeb());
+        ivCat.setImageResource(user.getAvatar());
         ivCat.setTag(user.getAvatar());
 
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         getMenuInflater().inflate(R.menu.activity_profile, menu);
+        if(user!=null)
+        menu.findItem(R.id.mnuAccept).setTitle(R.string.menu_add_title);
         return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.mnuAccept) {
             //I consider that the only essential information are emaiil,phone and name.
-            if(ivEmail.isClickable()&&ivPhone.isClickable()&& !TextUtils.isEmpty(txtName.getText().toString())){
+            if (ivEmail.isClickable() && ivPhone.isClickable() && !TextUtils.isEmpty(txtName.getText().toString())) {
                 addStudent();
-                return true;}
-            else
+                return true;
+            } else
                 Toast.makeText(this, "Add valid information", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
@@ -339,8 +353,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void addStudent() {
         Intent result = new Intent();
-        result.putExtra("user", new User(txtName.getText().toString(),txtPhone.getText().toString(),txtEmail.getText().toString(),(int)ivCat.getTag(),txtWeb.getText().toString(),txtAddress.getText().toString()));
-        result.putExtra("position",position);
+        result.putExtra("user", new User(txtName.getText().toString(), txtPhone.getText().toString(), txtEmail.getText().toString(), (int) ivCat.getTag(), txtWeb.getText().toString(), txtAddress.getText().toString()));
+        result.putExtra("position", position);
         setResult(RESULT_OK, result);
         finish();
     }

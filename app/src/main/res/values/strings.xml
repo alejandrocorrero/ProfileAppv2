@@ -28,4 +28,5 @@
     <string name="MainPageActivity_remove_user">%1$s remove</string>
     <string name="MainPageActivity_undo_user">Undo</string>
     <string name="activity_profile_name">User profile</string>
+    <string name="menu_add_title">Update</string>
 </resources>

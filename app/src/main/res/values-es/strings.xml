@@ -28,4 +28,5 @@
     <string name="MainPageActivity_remove_user">%1$s ha sido eliminado</string>
     <string name="MainPageActivity_undo_user">Deshacer</string>
     <string name="activity_profile_name">Perfil Usuario</string>
+    <string name="menu_add_title">Actualizar</string>
 </resources>
