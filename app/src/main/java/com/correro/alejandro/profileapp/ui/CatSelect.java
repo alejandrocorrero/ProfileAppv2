@@ -46,35 +46,47 @@ public class CatSelect extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cat_select);
         ButterKnife.bind(this);
-        ivCat1.setTag(R.drawable.cat1);
-        ivCat2.setTag(R.drawable.cat2);
-        ivCat3.setTag(R.drawable.cat3);
-        ivCat4.setTag(R.drawable.cat4);
-        ivCat5.setTag(R.drawable.cat5);
-        ivCat6.setTag(R.drawable.cat6);
+        onCreateValues();
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {
-            int cat = extras.getInt("cat");
-            if (cat == (Integer) ivCat1.getTag())
-                ivCat1.setAlpha((float) 0.5);
-            if (cat == (Integer) ivCat2.getTag())
-                ivCat2.setAlpha((float) 0.5);
-            if (cat == (Integer) ivCat3.getTag())
-                ivCat3.setAlpha((float) 0.5);
-            if (cat == (Integer) ivCat4.getTag())
-                ivCat4.setAlpha((float) 0.5);
-            if (cat == (Integer) ivCat5.getTag())
-                ivCat5.setAlpha((float) 0.5);
-            if (cat == (Integer) ivCat6.getTag())
-                ivCat6.setAlpha((float) 0.5);
+            actualCat(extras);
         }
 
     }
-    @OnClick({R.id.ivCat3,R.id.lblCat3})
-    public void cat3CLick(){
-        intentForCat(new Cat((Integer) ivCat3.getTag(), lblCat3.getText().toString()));
+
+    private void actualCat(Bundle extras) {
+        int cat = extras.getInt("cat");
+        if (cat == ((Cat) ivCat1.getTag()).getId())
+            ivCat1.setAlpha((float) 0.5);
+        if (cat == ((Cat) ivCat2.getTag()).getId())
+            ivCat2.setAlpha((float) 0.5);
+        if (cat == ((Cat) ivCat3.getTag()).getId())
+            ivCat3.setAlpha((float) 0.5);
+        if (cat == ((Cat) ivCat4.getTag()).getId())
+            ivCat4.setAlpha((float) 0.5);
+        if (cat == ((Cat) ivCat5.getTag()).getId())
+            ivCat5.setAlpha((float) 0.5);
+        if (cat == ((Cat) ivCat6.getTag()).getId())
+            ivCat6.setAlpha((float) 0.5);
     }
+
+    private void onCreateValues() {
+        ivCat1.setTag(new Cat(R.drawable.cat1,lblCat1.getText().toString()));
+        ivCat2.setTag(new Cat(R.drawable.cat2,lblCat2.getText().toString()));
+        ivCat3.setTag(new Cat(R.drawable.cat3,lblCat3.getText().toString()));
+        ivCat4.setTag(new Cat(R.drawable.cat4,lblCat4.getText().toString()));
+        ivCat5.setTag(new Cat(R.drawable.cat5,lblCat5.getText().toString()));
+        ivCat6.setTag(new Cat(R.drawable.cat6,lblCat6.getText().toString()));
+        lblCat1.setTag(new Cat(R.drawable.cat1,lblCat1.getText().toString()));
+        lblCat2.setTag(new Cat(R.drawable.cat2,lblCat2.getText().toString()));
+        lblCat3.setTag(new Cat(R.drawable.cat3,lblCat3.getText().toString()));
+        lblCat4.setTag(new Cat(R.drawable.cat4,lblCat4.getText().toString()));
+        lblCat5.setTag(new Cat(R.drawable.cat5,lblCat5.getText().toString()));
+        lblCat6.setTag(new Cat(R.drawable.cat6,lblCat6.getText().toString()));
+    }
+
+
 
     private void intentForCat(Cat value) {
         Intent result = new Intent();
@@ -82,37 +94,8 @@ public class CatSelect extends AppCompatActivity {
         setResult(RESULT_OK, result);
         finish();
     }
-
-    @OnClick({R.id.ivCat1,R.id.lblCat1})
-    public void cat1CLick(){
-        intentForCat(new Cat((Integer) ivCat1.getTag(),lblCat1.getText().toString()));
-    }
-    @OnClick({R.id.ivCat2,R.id.lblCat2})
-    public void cat2CLick(){
-        intentForCat(new Cat((Integer) ivCat2.getTag(),lblCat2.getText().toString()));
-    }
-    @OnClick({R.id.ivCat4,R.id.lblCat4})
-    public void cat4CLick(){
-        intentForCat(new Cat((Integer) ivCat4.getTag(),lblCat4.getText().toString()));
-    }
-    @OnClick({R.id.ivCat5,R.id.lblCat5})
-    public void cat5CLick(){
-        intentForCat(new Cat((Integer) ivCat5.getTag(),lblCat5.getText().toString()));
-    }
-    @OnClick({R.id.ivCat6,R.id.lblCat6})
-    public void cat6CLick(){
-        intentForCat(new Cat((Integer) ivCat6.getTag(),lblCat6.getText().toString()));
-    }
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
-
-    //TODO REVISAR
-//    @OnClick({R.id.ivCat1,R.id.ivCat2,R.id.ivCat3,R.id.ivCat4,R.id.ivCat5,R.id.ivCat6})
-//    public void cat1CLick(View view){
-//        intentForCat((Cat) view.getTag());
-//    }
+    @OnClick({R.id.ivCat1,R.id.ivCat2,R.id.ivCat3,R.id.ivCat4,R.id.ivCat5,R.id.ivCat6,R.id.lblCat1,R.id.lblCat2,R.id.lblCat3,R.id.lblCat4,R.id.lblCat5,R.id.lblCat6})
+   public void catCLick(View view){
+       intentForCat((Cat) view.getTag());}
 
 }

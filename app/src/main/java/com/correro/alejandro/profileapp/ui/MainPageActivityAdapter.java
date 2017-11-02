@@ -28,7 +28,7 @@ public class MainPageActivityAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return data == null ? 0 : data.size();
-}
+    }
 
     @Override
     public User getItem(int position) {
@@ -43,21 +43,17 @@ public class MainPageActivityAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-        // Si no puedo reciclar.
         if (convertView == null) {
-            // Inflar.
             convertView = layoutInflater.inflate(R.layout.activity_main_item, parent, false);
             viewHolder = onCreateViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        // Escribir.
         onBindViewHolder(position, viewHolder);
-
-        // Retorna la vista ya configurada.
         return convertView;
     }
+
     public void setData(ArrayList<User> newData) {
         data = newData;
         notifyDataSetChanged();
@@ -75,7 +71,6 @@ public class MainPageActivityAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        //TODO AÑADIR CON BUTTERNAI
         TextView lblName;
         TextView lblEmail;
         TextView lblPhone;

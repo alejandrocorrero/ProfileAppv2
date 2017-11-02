@@ -1,7 +1,6 @@
 package com.correro.alejandro.profileapp.data.model;
 
 
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
