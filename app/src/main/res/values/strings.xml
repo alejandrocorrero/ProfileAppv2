@@ -2,7 +2,7 @@
     <string name="app_name">Profile</string>
     <string name="activity_main_txtWeb_hint">(url)</string>
     <string name="activity_main_lblWeb_text">Web</string>
-    <string name="activity_main_txtAddress_hint">(adress)</string>
+    <string name="activity_main_txtAddress_hint">(address)</string>
     <string name="activity_main_lblAddress_text">Address</string>
     <string name="activity_main_lblHint_hint">(email)</string>
     <string name="activity_main_txtPhone_hint">(Phone)</string>
@@ -29,4 +29,5 @@
     <string name="MainPageActivity_undo_user">Undo</string>
     <string name="activity_profile_name">User profile</string>
     <string name="menu_add_title">Update</string>
+    <string name="profile_activity_option_fail">Add valid information</string>
 </resources>

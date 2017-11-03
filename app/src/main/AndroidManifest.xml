@@ -15,7 +15,7 @@
             android:label="@string/activity_profile_name"
             android:parentActivityName=".ui.MainPageActivity" />
         <activity
-            android:name=".ui.CatSelect"
+            android:name=".ui.CatSelectionActivity"
             android:label="@string/activity_cat_name"
             android:parentActivityName=".ui.ProfileActivity" />
         <activity android:name=".ui.MainPageActivity">

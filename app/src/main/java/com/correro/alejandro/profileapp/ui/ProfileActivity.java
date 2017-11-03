@@ -1,8 +1,6 @@
 package com.correro.alejandro.profileapp.ui;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -23,8 +21,6 @@ import com.correro.alejandro.profileapp.data.model.User;
 import com.correro.alejandro.profileapp.data.utils.IntentsUtils;
 import com.correro.alejandro.profileapp.data.utils.NetworkUtils;
 import com.correro.alejandro.profileapp.data.utils.ValidationUtils;
-
-import org.w3c.dom.Text;
 
 import butterknife.BindColor;
 import butterknife.BindView;
@@ -69,8 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
     TextView lblCatName;
     @BindColor(R.color.focus)
     int focusColor;
-    private static final String STATE_TEXT_CAT = "STATE_TEXT_CAT";
-    private static final String STATE_IMAGE_CAT = "STATE_IMAGE_CAT";
+    private static final String STATE_CAT = "STATE_CAT";
     final int RC_CAT = 1;
     //Value of the actual ivCat drawable
     int drawableId;
@@ -78,6 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
     private static final String EXTRA_POSITION = "EXTRA_POSITION";
     private User user = null;
     private int position;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,18 +83,25 @@ public class ProfileActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         startValues();
         ivCat.setTag(R.drawable.cat1);
-        drawableId = (Integer) ivCat.getTag();
         if (user != null)
             setDate(user);
+        drawableId = (Integer) ivCat.getTag();
 
     }
 
     private void startValues() {
         txtName.requestFocus();
-        ivWeb.setClickable(false);
-        ivPhone.setClickable(false);
-        ivEmail.setClickable(false);
-        ivAddress.setClickable(false);
+        ivWeb.setEnabled(false);
+        ivPhone.setEnabled(false);
+        ivEmail.setEnabled(false);
+        ivAddress.setEnabled(false);
+    }
+
+    private void obtainIntentData(Intent intent) {
+        if (intent != null && intent.hasExtra(EXTRA_USER) && intent.hasExtra(EXTRA_POSITION)) {
+            user = intent.getParcelableExtra(EXTRA_USER);
+            position = intent.getIntExtra(EXTRA_POSITION, 0);
+        }
     }
 
     @OnFocusChange(R.id.txtName)
@@ -160,10 +163,10 @@ public class ProfileActivity extends AppCompatActivity {
     public void emailIconChange() {
         if (ValidationUtils.isValidEmail(txtEmail.getText().toString())) {
             ivEmail.setImageResource(R.drawable.ic_email_black_24dp);
-            ivEmail.setClickable(true);
+            ivEmail.setEnabled(true);
         } else {
             ivEmail.setImageResource(R.drawable.ic_email_grey_24dp);
-            ivEmail.setClickable(false);
+            ivEmail.setEnabled(false);
         }
     }
 
@@ -171,10 +174,10 @@ public class ProfileActivity extends AppCompatActivity {
     public void phoneIconChange() {
         if (ValidationUtils.isValidPhone(txtPhone.getText().toString())) {
             ivPhone.setImageResource(R.drawable.ic_local_phone_black_24dp);
-            ivPhone.setClickable(true);
+            ivPhone.setEnabled(true);
         } else {
             ivPhone.setImageResource(R.drawable.ic_local_phone_grey_24dp);
-            ivPhone.setClickable(false);
+            ivPhone.setEnabled(false);
         }
     }
 
@@ -182,10 +185,10 @@ public class ProfileActivity extends AppCompatActivity {
     public void webIconChange() {
         if (ValidationUtils.isValidUrl(txtWeb.getText().toString())) {
             ivWeb.setImageResource(R.drawable.ic_web_black_24dp);
-            ivWeb.setClickable(true);
+            ivWeb.setEnabled(true);
         } else {
             ivWeb.setImageResource(R.drawable.ic_web_grey_24dp);
-            ivWeb.setClickable(false);
+            ivWeb.setEnabled(false);
         }
     }
 
@@ -193,16 +196,16 @@ public class ProfileActivity extends AppCompatActivity {
     public void addressIconChange() {
         if (!TextUtils.isEmpty(txtAddress.getText().toString())) {
             ivAddress.setImageResource(R.drawable.ic_map_black_24dp);
-            ivAddress.setClickable(true);
+            ivAddress.setEnabled(true);
         } else {
             ivAddress.setImageResource(R.drawable.ic_map_grey_24dp);
-            ivAddress.setClickable(false);
+            ivAddress.setEnabled(false);
         }
     }
 
     @OnClick(R.id.ivEmail)
     public void emailSend() {
-        if (ivEmail.isClickable()) {
+        if (ivEmail.isEnabled()) {
             Intent intent = IntentsUtils.newEmailIntent((txtEmail.getText().toString()));
             if (IntentsUtils.isActivityAvailable(getApplicationContext(), intent)) {
                 startActivity(intent);
@@ -216,7 +219,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     @OnClick(R.id.ivPhone)
     public void phoneDial() {
-        if (ivPhone.isClickable()) {
+        if (ivPhone.isEnabled()) {
             Intent intent = IntentsUtils.newDialIntent(txtPhone.getText().toString());
             if (IntentsUtils.isActivityAvailable(getApplicationContext(), intent)) {
                 startActivity(intent);
@@ -229,7 +232,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     @OnClick(R.id.ivAddress)
     public void addressSearch() {
-        if (ivAddress.isClickable()) {
+        if (ivAddress.isEnabled()) {
             Intent intent = IntentsUtils.newSearchInMapIntent((txtAddress.getText().toString()));
             if (IntentsUtils.isActivityAvailable(getApplicationContext(), intent)) {
                 startActivity(intent);
@@ -242,7 +245,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     @OnClick(R.id.ivWeb)
     public void navigateUrl() {
-        if (ivWeb.isClickable() && NetworkUtils.isConnectionAvailable(getApplicationContext())) {
+        if (ivWeb.isEnabled() && NetworkUtils.isConnectionAvailable(getApplicationContext())) {
             Intent intent = IntentsUtils.newViewUriIntent(Uri.parse(txtWeb.getText().toString()));
             if (IntentsUtils.isActivityAvailable(getApplicationContext(), intent)) {
                 startActivity(intent);
@@ -257,23 +260,24 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putString(STATE_TEXT_CAT, lblCatName.getText().toString());
-        outState.putInt(STATE_IMAGE_CAT, drawableId);
+        outState.putParcelable(STATE_CAT,new Cat(drawableId,lblCatName.getText().toString()));
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        ivCat.setImageResource(savedInstanceState.getInt(STATE_IMAGE_CAT));
-        ivCat.setTag(savedInstanceState.getInt(STATE_IMAGE_CAT));
-        drawableId = savedInstanceState.getInt(STATE_IMAGE_CAT);
-        lblCatName.setText(savedInstanceState.getString(STATE_TEXT_CAT));
+        Cat cat =savedInstanceState.getParcelable(STATE_CAT);
+        assert cat != null;
+        ivCat.setImageResource(cat.getId());
+        ivCat.setTag(cat.getId());
+        drawableId = cat.getId();
+        lblCatName.setText(cat.getName());
     }
 
     @OnClick({R.id.ivCat, R.id.lblCatName})
     public void clickCat() {
-        Intent intent = new Intent(this, CatSelect.class);
+        Intent intent = new Intent(this, CatSelectionActivity.class);
         intent.putExtra("cat", (int) ivCat.getTag());
         startActivityForResult(intent, RC_CAT);
 
@@ -305,12 +309,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    private void obtainIntentData(Intent intent) {
-        if (intent != null && intent.hasExtra(EXTRA_USER) && intent.hasExtra(EXTRA_POSITION)) {
-            user = intent.getParcelableExtra(EXTRA_USER);
-            position = intent.getIntExtra(EXTRA_POSITION, 0);
-        }
-    }
+
 
     private void setDate(User user) {
         txtName.setText(user.getName());
@@ -342,11 +341,11 @@ public class ProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.mnuAccept) {
             //I consider that the only essential information are emaiil,phone and name.
-            if (ivEmail.isClickable() && ivPhone.isClickable() && !TextUtils.isEmpty(txtName.getText().toString())) {
+            if (ivEmail.isEnabled() && ivPhone.isEnabled() && !TextUtils.isEmpty(txtName.getText().toString())) {
                 addStudent();
                 return true;
             } else
-                Toast.makeText(this, "Add valid information", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString( R.string.profile_activity_option_fail), Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

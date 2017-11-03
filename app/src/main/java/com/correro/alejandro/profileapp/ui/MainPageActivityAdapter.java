@@ -20,7 +20,7 @@ public class MainPageActivityAdapter extends BaseAdapter {
     ArrayList<User> data;
     private final LayoutInflater layoutInflater;
 
-    public MainPageActivityAdapter(Context context, @NonNull ArrayList<User> data) {
+    MainPageActivityAdapter(Context context, @NonNull ArrayList<User> data) {
         this.data = data;
         layoutInflater = LayoutInflater.from(context);
     }
@@ -76,14 +76,14 @@ public class MainPageActivityAdapter extends BaseAdapter {
         TextView lblPhone;
         ImageView ivAvatar;
 
-        public ViewHolder(View itemView) {
-            lblName = (TextView) itemView.findViewById(R.id.lblName);
-            lblEmail = (TextView) itemView.findViewById(R.id.lblEmail);
-            lblPhone = (TextView) itemView.findViewById(R.id.lblPhone);
+        ViewHolder(View itemView) {
+            lblName = itemView.findViewById(R.id.lblName);
+            lblEmail = itemView.findViewById(R.id.lblEmail);
+            lblPhone = itemView.findViewById(R.id.lblPhone);
             ivAvatar = itemView.findViewById(R.id.ivAvatar);
         }
 
-        public void bind(User user) {
+        void bind(User user) {
             lblName.setText(user.getName());
             lblEmail.setText(user.getEmail());
             lblPhone.setText(user.getPhone());
