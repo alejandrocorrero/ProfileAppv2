@@ -89,6 +89,18 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    private void setDate(User user) {
+        txtName.setText(user.getName());
+        txtEmail.setText(user.getEmail());
+        txtAddress.setText(user.getMap());
+        txtPhone.setText(user.getPhone());
+        txtWeb.setText(user.getWeb());
+        ivCat.setImageResource(user.getAvatar());
+        ivCat.setTag(user.getAvatar());
+
+
+    }
+
     private void startValues() {
         txtName.requestFocus();
         ivWeb.setEnabled(false);
@@ -258,29 +270,29 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putParcelable(STATE_CAT,new Cat(drawableId,lblCatName.getText().toString()));
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        Cat cat =savedInstanceState.getParcelable(STATE_CAT);
-        assert cat != null;
-        ivCat.setImageResource(cat.getId());
-        ivCat.setTag(cat.getId());
-        drawableId = cat.getId();
-        lblCatName.setText(cat.getName());
-    }
-
     @OnClick({R.id.ivCat, R.id.lblCatName})
     public void clickCat() {
         Intent intent = new Intent(this, CatSelectionActivity.class);
         intent.putExtra("cat", (int) ivCat.getTag());
         startActivityForResult(intent, RC_CAT);
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(STATE_CAT, new Cat(drawableId, lblCatName.getText().toString()));
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Cat cat = savedInstanceState.getParcelable(STATE_CAT);
+        assert cat != null;
+        ivCat.setImageResource(cat.getId());
+        ivCat.setTag(cat.getId());
+        drawableId = cat.getId();
+        lblCatName.setText(cat.getName());
     }
 
     @Override
@@ -310,27 +322,15 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-
-    private void setDate(User user) {
-        txtName.setText(user.getName());
-        txtEmail.setText(user.getEmail());
-        txtAddress.setText(user.getMap());
-        txtPhone.setText(user.getPhone());
-        txtWeb.setText(user.getWeb());
-        ivCat.setImageResource(user.getAvatar());
-        ivCat.setTag(user.getAvatar());
-
-
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.activity_profile, menu);
-        if(user!=null)
-        menu.findItem(R.id.mnuAccept).setTitle(R.string.menu_add_title);
+        if (user != null)
+            menu.findItem(R.id.mnuAccept).setTitle(R.string.menu_add_title);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -345,7 +345,7 @@ public class ProfileActivity extends AppCompatActivity {
                 addStudent();
                 return true;
             } else
-                Toast.makeText(this, getString( R.string.profile_activity_option_fail), Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.profile_activity_option_fail), Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -357,6 +357,5 @@ public class ProfileActivity extends AppCompatActivity {
         setResult(RESULT_OK, result);
         finish();
     }
-
 
 }
